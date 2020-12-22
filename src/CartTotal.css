@@ -1,0 +1,24 @@
+.cart-total {
+    flex: 0.3;
+    background-color: white;
+    padding: 20px;
+}
+
+.cart-total h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.cart-total button {
+    width: 100%;
+    background-color: #f0c14b;
+    border-radius: 4px;
+    border: 2px solid #a88734;
+    font-size: 16px;
+    padding: 4px 8px 4px 8px;
+    cursor: pointer;
+}
+
+.cart-total button:hover {
+    background-color:  #ddb347;
+}

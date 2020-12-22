@@ -1,0 +1,11 @@
+.cart-items {
+    flex: 0.7;
+    background-color: white;
+    margin-right: 18px;
+    padding: 20px;
+
+}
+
+.cart-items h1 { 
+    margin-bottom: 8px;
+}
