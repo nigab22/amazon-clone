@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 import './Product.css';
 import {db} from './Firebase';
 import CurrencyFormat from 'react-currency-format';
@@ -7,10 +6,10 @@ import Button from '@material-ui/core/Button';
 
 
 
-function Product(props) {
+function Product({id, productName, price, rating, image}) {
 
     const addToCart = () => {
-        const cartItem = db.collection('cart-items').doc(props.id);
+        const cartItem = db.collection('cart-items').doc(id);
         cartItem.get().then((doc)=>{
             if(doc.exists){
                 cartItem.update({
@@ -18,9 +17,9 @@ function Product(props) {
                 })
             }else{
                 cartItem.set({
-                    productName: props.productName,
-                    image: props.image,
-                    price: props.price,
+                    productName: productName,
+                    image: image,
+                    price: price,
                     quantity: 1
                 })
             }
@@ -32,15 +31,19 @@ function Product(props) {
     return (
         <div id="message" className="product">
             <div className="product-description">
-                <span className="product-name">{props.productName}</span>
+                <span className="product-name">{productName}</span>
                 <span className="product-price">
-                    <CurrencyFormat value={props.price} displayType={"text"} decimalScale={2} fixedDecimalScale={true} thousandSeparator={true} prefix={'$'} />
+                    <CurrencyFormat value={price} displayType={"text"} decimalScale={2} fixedDecimalScale={true} thousandSeparator={true} prefix={'$'} />
                 </span>
-                <span className="product-rating">                    
-                    <p>⭐</p><p>⭐</p><p>⭐</p><p>⭐</p><p>⭐</p>
+                <span className="product-rating">       
+                    {Array(rating)
+                    .fill()
+                    .map(()=> (
+                        <p>⭐</p>
+                    ))}             
                 </span>
             </div>
-            <img src={props.image} />
+            <img src={image} />
             <Button onClick={addToCart}><span>Add to cart</span></Button>
         </div>
     )

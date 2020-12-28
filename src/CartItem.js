@@ -1,6 +1,6 @@
-import React from 'react'
-import {db} from './Firebase'
-import './CartItem.css'
+import React from 'react';
+import {db} from './Firebase';
+import './CartItem.css';
 import CurrencyFormat from 'react-currency-format';
 
 

@@ -1,30 +1,34 @@
-import React from 'react'
-import './Header.css'
+import React from 'react';
+import './Header.css';
+import { Link } from 'react-router-dom';
+import { auth } from './Firebase';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
 
-function Header(props) {
-   // console.log(props.cartItems)
+function Header({cartItems, user}) {
+   // console.log(cartItems)
+  
+    const logout = () => {
+        if(user){
+            auth.signOut();
+            //console.log('signed out');
+        }
+    };
+
     const getCartItemsCount = () => {
         let count = 0;
-        props.cartItems.forEach(item => {
+        cartItems.forEach(item => {
             count += parseInt(item.cartItem.quantity);
         });
         return count; 
-    }
+    };
 
     return (
         <div className="header">
             {/* Logo */}
             <Link to="/">
                 <div className="header-logo">
-                    <img src={"https://mikekitko.com/wp-content/uploads/2019/10/amazon-logo-white-768x232.png"}/>
+                    <img src="https://mikekitko.com/wp-content/uploads/2019/10/amazon-logo-white-768x232.png"/>
                 </div>
             </Link>
             
@@ -47,15 +51,19 @@ function Header(props) {
 
             <div className="header-nav-items">
                 {/* Login name */}
-                <div className="header-option">
-                    <span className="header-option-line-one">Hello, Sign in</span>
-                    <span className="header-option-line-two">Account & Lists</span>
-                </div>  
+                <Link to={!user && "/Login"}>
+                    <div onClick={logout} className="header-option">
+                        <span className="header-option-line-one">Hello, {user? user.email : ""}</span>
+                        <span className="header-option-line-two">{user? "Sign out" : "Sign in"}</span>
+                    </div>  
+                </Link>
                 {/* Orders */}
-                <div className="header-option">
-                    <span className="header-option-line-one">Returns</span>
-                    <span className="header-option-line-two">& Orders</span>
-                </div>  
+                <Link to="/">
+                    <div className="header-option">
+                        <span className="header-option-line-one">Returns</span>
+                        <span className="header-option-line-two">& Orders</span>
+                    </div> 
+                </Link> 
                 {/* Cart */}
                 <Link to="/Cart">
                     <div className="header-option-cart">

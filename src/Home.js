@@ -17,7 +17,7 @@ function Home() {
                 })
             });
             setProduct(tempProducts);
-            console.log(products);
+            //console.log(products);
         });
     },[])
 
